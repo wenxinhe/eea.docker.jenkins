@@ -22,33 +22,6 @@ worker:
     - .secret
     - slave.env
 
-centos:
-  image: eeacms/jenkins:centos-slave
-  user: "1000"
-  volumes_from:
-    - data
-  env_file:
-    - .secret
-    - slave.env
-
-debian:
-  image: eeacms/jenkins:debian-slave
-  user: "1000"
-  volumes_from:
-    - data
-  env_file:
-    - .secret
-    - slave.env
-
-ubuntu:
-  image: eeacms/jenkins:ubuntu-slave
-  user: "1000"
-  volumes_from:
-    - data
-  env_file:
-    - .secret
-    - slave.env
-
 postfix:
   restart: always
   image: yorkshirekev/postfix
@@ -61,4 +34,4 @@ data:
   build: data
   user: "1000"
   volumes:
-    - /var/jenkins_home
+    - /var/jenkins_home:/var/jenkins_home/
