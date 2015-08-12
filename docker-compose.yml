@@ -1,37 +1,45 @@
 master:
-  restart: always
   image: eeacms/jenkins:master
+  restart: always
   user: "1000"
   ports:
-    - "80:8080"
-    - "50000:50000"
+  - "80:8080"
+  - "50000:50000"
   volumes_from:
-    - data
+  - data
   links:
-    - postfix
+  - postfix
   env_file:
-    - master.env
+  - master.env
 
 worker:
-  restart: always
   image: eeacms/jenkins:slave
+  restart: always
   user: "1000"
   volumes_from:
-    - data
+  - data
   env_file:
-    - .secret
-    - slave.env
+  - .secret
+  - slave.env
+  links:
+  - postgres
+
+postgres:
+  image: eeacms/postgres
+  restart: always
+  env_file:
+  - .secret
 
 postfix:
-  restart: always
   image: yorkshirekev/postfix
+  restart: always
   entrypoint: ["/bin/bash", "-c", "/startservices.sh $POSTFIX_DOMAIN"]
   env_file:
-    - .secret
-    - postfix.env
+  - .secret
+  - postfix.env
 
 data:
   build: data
   user: "1000"
   volumes:
-    - /var/jenkins_home:/var/jenkins_home/
+  - /var/jenkins_home:/var/jenkins_home/
