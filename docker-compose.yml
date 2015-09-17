@@ -31,12 +31,13 @@ postgres:
   - .secret
 
 postfix:
-  image: yorkshirekev/postfix
+  image: eeacms/postfix:eionet
   restart: always
-  entrypoint: ["/bin/bash", "-c", "/startservices.sh $POSTFIX_DOMAIN"]
   env_file:
   - .secret
   - postfix.env
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
 
 data:
   build: data
