@@ -1,4 +1,4 @@
-FROM eeacms/centos
+FROM eeacms/centos:7
 MAINTAINER "Alin Voinea" <alin.voinea@eaudeweb.ro>
 
 RUN \

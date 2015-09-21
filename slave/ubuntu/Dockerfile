@@ -1,4 +1,4 @@
-FROM eeacms/ubuntu
+FROM eeacms/ubuntu:14.04
 MAINTAINER "Alin Voinea" <alin.voinea@eaudeweb.ro>
 
 RUN \
