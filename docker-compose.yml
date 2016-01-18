@@ -3,7 +3,7 @@ master:
   image: eeacms/jenkins:master
   user: "1000"
   ports:
-    - "80:8080"
+    - "8080:8080"
     - "50000:50000"
   volumes_from:
     - data
@@ -21,6 +21,19 @@ worker:
   env_file:
     - .secret
     - slave.env
+
+docker:
+  restart: always
+  image: eeacms/jenkins:docker-slave
+  user: "1000"
+  volumes_from:
+    - data
+  env_file:
+    - .secret
+    - slave.env
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/bin/docker
 
 centos:
   image: eeacms/jenkins:centos-slave
